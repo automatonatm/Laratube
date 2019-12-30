@@ -7,6 +7,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
 
+/**
+ * Class User
+ * @package Laratube
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -53,5 +57,14 @@ class User extends Authenticatable
         static::creating(function ($model) {
             $model->{$model->getKeyName()} = (string) Str::uuid();
         });
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function channel()
+    {
+        return $this->hasOne(Channel::class);
     }
 }
