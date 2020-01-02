@@ -14,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'Laratube\Model' => 'Laratube\Policies\ModelPolicy',
+        'Laratube\Channel' => 'Laratube\Policies\ChannelPolicy',
     ];
 
     /**

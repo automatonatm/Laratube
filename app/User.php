@@ -48,6 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected  $with = ['channel'];
+
 
 
     protected static function boot()

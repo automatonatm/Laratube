@@ -55,7 +55,10 @@ class ChannelController extends Controller
      */
     public function show(Channel $channel)
     {
-        return view('channels.show', compact('channel'));
+        return view('channels.show', [
+            'channel' => $channel,
+            'subscriptions' => $channel->subscriptions
+        ]);
     }
 
     /**

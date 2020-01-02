@@ -26,7 +26,7 @@ class UpdateChannelRequest extends FormRequest
         return [
             'image' => 'nullable|image',
             'name' => 'required',
-            'description' => ['min:50', 'max:1000']
+            'description' => ['min:10', 'max:1000']
 
         ];
     }

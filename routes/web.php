@@ -27,6 +27,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('channels', 'ChannelController');
 
-Route::resource('channels/{channel}/subscriptions', 'SubscriptionController')->only(['store', 'destroy']);
+Route::post('/channels/{channel}/subscriptions', 'SubscriptionController@store');
+
+Route::delete('/channels/{channel}/subscriptions/{subscription}', 'SubscriptionController@destroy');
+
+Route::get('/channels/{channel}/videos', 'UploadVideoController@index')->name('video.upload');
+
+Route::post('/channels/{channel}/videos', 'UploadVideoController@store');
 
 

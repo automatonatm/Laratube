@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
 </head>
 <body>
@@ -59,7 +60,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{route('channels.show', auth()->user()->channel)}}">My Channel</a>
+                                    <a class="dropdown-item" href="{{route('channels.show', auth()->user()->channel->id)}}">My Channel</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -82,17 +83,18 @@
             @yield('content')
         </main>
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
 
     <script>
-        window.AuthUser = '{!! auth()->user() !!}'
-        window.__auth = function () {
-            try {
-                return JSON.parse(AuthUser)
-            }catch (e) {
-                return  null
-            }
-        }
+
+        window.App = {!!
+                json_encode([
+                'csrfToken' => csrf_token(),
+                'signedIn' => Auth::check(),
+                'user' => Auth::user()
+                ])
+         !!}
     </script>
+
+
 </body>
 </html>

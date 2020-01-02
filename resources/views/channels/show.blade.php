@@ -5,7 +5,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{$channel->name}}</div>
+                    <div class="card-header d-flex justify-content-between">
+                        {{$channel->name}}
+
+                        <a href="{{route('video.upload', ['channel' => $channel->id])}}">Upload Videos</a>
+
+                    </div>
                     <div class="card-body">
                         <form method="POST"
                               id="update-form"
@@ -48,11 +53,16 @@
 
                             @endif
 
-                            <subscribe inline-template :subscriptions="{{$channel->subscriptions}}">
+                            <subscribe inline-template  :channel="{{$channel}}" v-cloak>
                                 <div class="text-center">
-                                    <button @click.prevent="toggleSubscription" class="btn btn-danger">
-                                        Subscribe 7k
+                                    <button @click.prevent="toggleSubscription" class="btn btn-danger" v-if="signedIn && canSubscribe">
+                                   @{{ subscribed ? 'UNSUBSCRIBE' : 'SUBSCRIBE' }} @{{ count }}<i class="fa fa-bell-o"></i>
                                     </button>
+
+                                    <button disabled class="btn btn-danger" v-else>
+                                        @{{ count }} SUBSCRIBERS
+                                    </button>
+
                                 </div>
                             </subscribe>
 

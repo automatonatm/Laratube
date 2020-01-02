@@ -3,20 +3,33 @@
 namespace Laratube\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Laratube\Channel;
+use Laratube\Subscription;
 
 class SubscriptionController extends Controller
 {
+    /**
+     * SubscriptionController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Channel $channel
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function store(Request $request)
+    public function store(Channel $channel)
     {
-        //
+        $this->authorize('update', $channel);
+
+      return   $channel->subscriptions()->create([
+            'user_id' => auth()->id(),
+            'channel_id' => $channel->id
+        ]);
+
     }
 
 
@@ -27,8 +40,12 @@ class SubscriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Channel $channel, Subscription $subscription)
     {
-        //
+
+        $subscription->delete();
+
+        return response([]);
+
     }
 }

@@ -25,9 +25,9 @@ class UserTest extends TestCase
 
         event(new Registered(create(User::class)));
 
-        $channel= User::first()->channel;
+        $channel = User::first()->channel;
 
-       // dd($channel);
+        dd($channel);
 
         $this->assertDatabaseHas('channels', $channel->toArray());
 

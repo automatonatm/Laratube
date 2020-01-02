@@ -38,6 +38,11 @@ class Channel extends Model implements HasMedia
         return $this->hasMany(Subscription::class);
     }
 
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\MorphMany|object|null
      */
